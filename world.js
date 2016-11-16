@@ -41,9 +41,12 @@ $(document).ready(function(){
                           key = text;
                           if(key == ""){
                        
-                               alert("Text field must not be empty");
+                              key = "empty";
+                              x.open("GET", "world.php?country=" + key, true);
+                              x.send();
                            }
                            else{
+                               
                                x.open("GET", "world.php?country=" + key, true);
                                 x.send();
                            }

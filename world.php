@@ -9,20 +9,23 @@ $dbname = 'world';
 $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 
 $country = $_GET['country'];
-if($country != ""){ 
 
+//The next line test if no country is selected and checkbox is unchecked
+if (strpos($country, 'empty') !== false)
+{
+    print "<p>". "NO COUNTRIES"."</p>";
+
+}
+else if(isset($country)){ 
+    
     $stmt = $conn->query("SELECT * FROM countries WHERE name LIKE '%$country%'");
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    //print "<h3>" . strtoupper($query) . "</h3>";
-    //print "<p>" . $definition[$query] . "</p>";
-    //echo '<li>' . $row['name'] . ' is ruled by ' . $row['head_of_state'] . '</li>';
+    print "<p>".$result['name']." is ruled by ".$result['head_of_state']."</p>";
     
-    //print "<h3>".$country."</h3>";
-    print "<p>".$result['name']."is ruled by ".$result['head_of_state']."</p>";
 }
 else{
     
-    //alert("Empty Search");
+    
     $stmt = $conn->query("SELECT * FROM countries");
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
